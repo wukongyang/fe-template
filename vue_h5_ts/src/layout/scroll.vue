@@ -26,72 +26,59 @@
   const Props = withDefaults(
     defineProps<{
       pullDown?: boolean;
+      pullDownRefresh?: () => Promise<boolean>;
     }>(),
     {
       pullDown: false,
+      pullDownRefresh: () => Promise.resolve(true),
     }
   );
   let BS: BScrollInstance;
   const beforePullDown = ref(true);
   const isPullingDown = ref(false);
 
-  const scrollOptions: Options = {};
+  const scrollOptions: Options = {
+    click: true,
+  };
   if (Props.pullDown) {
     BScroll.use(PullDown);
     scrollOptions.pullDownRefresh = true;
   }
 
-  // import watermark from '@/utils/lib/watermark';
-  // import copyPaste from '@/utils/lib/copy-paste';
-
   onMounted(() => {
-    // 因为debug是存入localStorage中的，刷新页面会从localStorage取出，根据debug控制是否隐藏
     let wrapper = document.getElementById('scroll') as HTMLElement;
 
     BS = new BScroll(wrapper, scrollOptions);
     BS.on('pullingDown', pullingDownHandler);
-    // const { username = '', mobile = '' } = auth.getUser();
-    // watermark.add({
-    //   // content: username + ' ' + mobile,
-    // });
-    // copyPaste.disable();
   });
-  function pullingDownHandler() {
+  async function pullingDownHandler() {
     beforePullDown.value = false;
     isPullingDown.value = true;
-    console.log('pullingDownHandler');
-    setTimeout(() => {
+    const result = await Props.pullDownRefresh();
+    console.log('result', result);
+
+    if (result) {
       isPullingDown.value = false;
       setTimeout(() => {
-        BS.finishPullDown();
-        BS.refresh();
-        beforePullDown.value = true;
+        finishPullDown();
       }, 100);
-    }, 1000);
+    }
   }
+  function getInstance() {
+    return BS;
+  }
+  function finishPullDown() {
+    BS.finishPullDown();
+    BS.refresh();
+    beforePullDown.value = true;
+  }
+  defineExpose({
+    getInstance,
+    finishPullDown,
+  });
 </script>
 
 <style lang="less" scoped>
-  // .layout {
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   .header {
-  //     position: fixed;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: @header-height;
-  //     z-index: 1;
-  //     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
-  //   }
-  //   .content {
-  //     padding: 16px;
-  //     margin-top: @header-height;
-  //     height: calc(100% - @header-height);
-  //     overflow: auto;
-  //   }
-  // }
   .scroll-warp {
     position: absolute;
     left: 0;
