@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "ViscidGlobe": "/components/ViscidGlobe/ViscidGlobe"
+  }
+}

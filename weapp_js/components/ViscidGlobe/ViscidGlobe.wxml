@@ -1,0 +1,8 @@
+<!--components/ViscidGlobe/index.wxml-->
+<view class="sticky-container">
+   <view class="blurfield">
+     <view class="ball1"></view>
+     <view class="ball2"></view>
+   </view>
+   
+ </view>

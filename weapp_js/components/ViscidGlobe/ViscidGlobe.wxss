@@ -1,0 +1,42 @@
+/* components/ViscidGlobe/index.wxss */
+.sticky-container {
+  background: #000;
+  overflow: hidden;
+  height: 200rpx;
+  width: 100%;
+}
+.blurfield {
+  height: 200rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  /* filter: blur(10rpx) contrast(30); */
+}
+.ball1,
+  .ball2 {
+    width: 80rpx;
+    height: 80rpx;
+    background-color: #07c160;
+    position: absolute;
+    animation: ball 10s infinite;
+    border-radius: 100%;
+  }
+
+.ball2 {
+  animation-delay: -2s;
+}
+
+@keyframes ball {
+  0% {
+    transform: translateX(-100rpx);
+  }
+
+  50% {
+    transform: translateX(100rpx);
+  }
+  100% {
+    transform: translateX(-100rpx);
+  }
+}

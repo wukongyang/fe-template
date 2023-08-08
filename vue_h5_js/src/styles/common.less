@@ -1,0 +1,49 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+  font-size: 28px;
+  color: @font-color;
+  position: relative;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+#app ::-webkit-scrollbar {
+  display: none;
+}
+
+.flex-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-jc {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-ac {
+  display: flex;
+  align-items: center;
+}
+
+.link,
+a {
+  color: @blue;
+}
